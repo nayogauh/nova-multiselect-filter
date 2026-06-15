@@ -59,10 +59,12 @@ class BooksByAuthorFilter extends MultiselectFilter
 
 ```
 
-> **Nova 4 & 5 compatibility:** keep the `apply()` signature **untyped** as shown above
-> (`apply($request, $query, $value)`). Nova 4 declares the filter `$query` parameter
-> untyped while Nova 5 types it as `Builder`, so adding `Builder $query`, `mixed $value`
-> or a `: Builder` return type makes the filter incompatible with Nova 4.
+> **Nova 4 & 5 compatibility:** `MultiselectFilter` does not define `apply()` itself, so
+> your filter's `apply()` is validated against the Nova version you run. On **Nova 5** you
+> may use the fully typed signature
+> (`apply(NovaRequest $request, Builder $query, mixed $value): Builder`); on **Nova 4** use
+> the untyped signature (`apply(NovaRequest $request, $query, $value)`), since Nova 4
+> declares the `$query` parameter untyped.
 
 ### Option groups
 

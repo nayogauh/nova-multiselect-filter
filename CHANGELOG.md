@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Restored Laravel Nova 4 support alongside Nova 5 (`laravel/nova: ^4.0 || ^5.0`), covering Laravel 9 through 13
-- Made `MultiselectFilter::apply()` untyped (`apply(NovaRequest $request, $query, $value)`) so the abstract filter is LSP-compatible with both Nova 4 (untyped `$query`) and Nova 5 (typed `Builder $query`). Child filters must use the same untyped signature — do not type-hint `$query`/`$value` or add a return type
+- Removed the default `apply()` implementation from `MultiselectFilter`. It now stays abstract (inherited from `Laravel\Nova\Filters\Filter`), so each child filter is validated directly against the installed Nova version. This lets filters keep the typed Nova 5 signature (`apply(NovaRequest $request, Builder $query, mixed $value): Builder`) or the untyped Nova 4 signature without the package forcing one on them
 - Widened `outl1ne/nova-translations-loader` constraint to `^4.0 || ^5.0`
 
 ## [5.0.1] - 19-02-2025
