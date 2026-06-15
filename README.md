@@ -59,6 +59,11 @@ class BooksByAuthorFilter extends MultiselectFilter
 
 ```
 
+> **Nova 4 & 5 compatibility:** keep the `apply()` signature **untyped** as shown above
+> (`apply($request, $query, $value)`). Nova 4 declares the filter `$query` parameter
+> untyped while Nova 5 types it as `Builder`, so adding `Builder $query`, `mixed $value`
+> or a `: Builder` return type makes the filter incompatible with Nova 4.
+
 ### Option groups
 
 Option groups are supported. Their syntax is the same as [Laravel's option group syntax](https://nova.laravel.com/docs/2.0/resources/fields.html#select-field).

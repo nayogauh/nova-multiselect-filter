@@ -3,8 +3,6 @@
 namespace Outl1ne\NovaMultiselectFilter;
 
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -15,15 +13,17 @@ abstract class MultiselectFilter extends Filter
     /**
      * Apply the filter to the given query.
      *
-     * Note: the $query parameter is intentionally left untyped so this signature
-     * stays compatible with both Nova 4 (untyped $query) and Nova 5 (typed Builder).
+     * The signature is intentionally left untyped so it stays LSP-compatible with
+     * both Nova 4 (`apply(NovaRequest $request, $query, $value)`) and Nova 5
+     * (`apply(NovaRequest $request, Builder $query, mixed $value)`). For the same
+     * reason, child filters must NOT type-hint $query/$value or add a return type.
      *
-     * @param Request $request
-     * @param Builder $query
-     * @param $value
-     * @return Builder
+     * @param NovaRequest $request
+     * @param \Illuminate\Contracts\Database\Eloquent\Builder $query
+     * @param mixed $value
+     * @return \Illuminate\Contracts\Database\Eloquent\Builder
      */
-    public function apply(NovaRequest $request, $query, mixed $value): Builder
+    public function apply(NovaRequest $request, $query, $value)
     {
         return $query;
     }
